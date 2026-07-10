@@ -50,7 +50,8 @@ export function foldFlowLines(
     onOverflow
   }: FoldOptions = {}
 ): string {
-  if (!lineWidth || lineWidth < 0) return text
+  if (lineWidth === 0 && minContentWidth === 0) lineWidth = 40
+  else if (!lineWidth || lineWidth < 0) return text
   if (lineWidth < minContentWidth) minContentWidth = 0
   const endStep = Math.max(1 + minContentWidth, 1 + lineWidth - indent.length)
   if (text.length <= endStep) return text
