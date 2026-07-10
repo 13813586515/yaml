@@ -12,6 +12,13 @@ export function stringifyDocument(
   options: ToStringOptions
 ): string {
   const lines: string[] = []
+  if (
+    doc.directives &&
+    doc.value.tag?.startsWith('!template:') &&
+    doc.value.tag.includes('+')
+  ) {
+    doc.directives.tags['!env!'] = '!template:'
+  }
   let hasDirectives = options.directives === true
   if (options.directives !== false && doc.directives) {
     const dir = doc.directives.toString(doc)
