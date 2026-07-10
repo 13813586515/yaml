@@ -137,7 +137,11 @@ function stringifyProps(
     props.push(`&${anchor}`)
   }
   const tag = node.tag ?? (tagObj.default ? null : tagObj.tag)
-  if (tag) props.push(doc.directives.tagString(tag))
+  if (tag) {
+    let tagSource = doc.directives.tagString(tag)
+    if (tag.includes('!audit:')) tagSource = tagSource.replace(/%/g, '%25')
+    props.push(tagSource)
+  }
   return props.join(' ')
 }
 
