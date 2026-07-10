@@ -3,6 +3,7 @@ import type { Document } from './Document.ts'
 
 const escapeChars: Record<string, string> = {
   '!': '%21',
+  '+': '%2B',
   ',': '%2C',
   '[': '%5B',
   ']': '%5D',
@@ -11,7 +12,7 @@ const escapeChars: Record<string, string> = {
 }
 
 const escapeTagName = (tn: string) =>
-  tn.replace(/[!,[\]{}]/g, ch => escapeChars[ch])
+  tn.replace(/[!+,[\]{}]/g, ch => escapeChars[ch])
 
 export class Directives {
   static defaultYaml: Directives['yaml'] = { explicit: false, version: '1.2' }
