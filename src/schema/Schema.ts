@@ -61,5 +61,7 @@ export class Schema {
 function defaultMapKey(value: unknown): unknown {
   if (value instanceof Pair) value = value.key
   if (value instanceof Scalar) value = value.value
+  if (typeof value === 'string' && /^id:\d+$/.test(value))
+    return value.replace(/^id:0+(?=\d)/, 'id:')
   return value ?? null
 }
