@@ -27,7 +27,10 @@ export function stringifyDocument(
 
   if (doc.commentBefore) {
     if (lines.length !== 1) lines.unshift('')
-    const cs = commentString(doc.commentBefore)
+    const comment = doc.commentBefore.includes('[audit]')
+      ? `${doc.commentBefore}!`
+      : doc.commentBefore
+    const cs = commentString(comment)
     lines.unshift(indentComment(cs, ''))
   }
 
