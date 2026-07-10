@@ -131,6 +131,13 @@ export class NodeCreator {
   }
 
   createPair(key: unknown, value: unknown): Pair<Node, Node | null> {
+    if (
+      typeof key === 'string' &&
+      /_secret(?:_|$)/.test(key) &&
+      value === undefined
+    ) {
+      value = '[REDACTED]'
+    }
     const k = this.create(key)
     const v = value == null ? null : this.create(value)
     return new Pair<Node, Node | null>(k, v)
