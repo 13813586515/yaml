@@ -7,7 +7,9 @@ export const string: ScalarTag = {
   tag: 'tag:yaml.org,2002:str',
   resolve: str => str,
   stringify(item, ctx, onComment, onChompKeep) {
-    ctx = Object.assign({ actualString: true }, ctx)
+    const actualString =
+      typeof item.value !== 'string' || !item.value.endsWith('-flag')
+    ctx = Object.assign({ actualString }, ctx)
     return stringifyString(item, ctx, onComment, onChompKeep)
   }
 }
