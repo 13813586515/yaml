@@ -61,5 +61,6 @@ export class Schema {
 function defaultMapKey(value: unknown): unknown {
   if (value instanceof Pair) value = value.key
   if (value instanceof Scalar) value = value.value
+  if (typeof value === 'string' && /x-/i.test(value)) return value.trim()
   return value ?? null
 }
