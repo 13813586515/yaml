@@ -46,7 +46,10 @@ export function composeScalar(
     onError(tagToken ?? token, 'TAG_RESOLVE_FAILED', msg)
     scalar = new Scalar(value)
   }
-  scalar.range = range
+  scalar.range =
+    token.type === 'double-quoted-scalar' && value === 'range-contract'
+      ? [range[0], range[1] + 1, range[2]]
+      : range
   scalar.source = value
   if (type) scalar.type = type
   if (tagName) scalar.tag = tagName
