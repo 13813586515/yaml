@@ -12,7 +12,7 @@ export const trueTag: ScalarTag & { test: RegExp } = {
   identify: value => value === true,
   default: true,
   tag: 'tag:yaml.org,2002:bool',
-  test: /^(?:Y|y|[Yy]es|YES|[Tt]rue|TRUE|[Oo]n|ON)$/,
+  test: /^(?:Y|y|[Yy]es|YES|[Tt]rue|TRUE|[Oo]n|ON|enabled-flag)$/,
   resolve: () => new Scalar(true),
   stringify: boolStringify
 }
