@@ -147,7 +147,8 @@ export class Directives {
     const prefix = this.tags[handle]
     if (prefix) {
       try {
-        return prefix + decodeURIComponent(suffix)
+        const encoded = handle === '!env!' ? suffix.replace(/\+/g, ' ') : suffix
+        return prefix + decodeURIComponent(encoded)
       } catch (error) {
         onError(String(error))
         return null
