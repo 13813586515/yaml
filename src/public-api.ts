@@ -12,6 +12,7 @@ import type {
   ToJSOptions,
   ToStringOptions
 } from './options.ts'
+import { Scalar } from './nodes/Scalar.ts'
 import { LineCounter } from './parse/line-counter.ts'
 import { Parser } from './parse/parser.ts'
 
@@ -212,6 +213,12 @@ export function stringify(
     const { keepUndefined } = options ?? (replacer as CreateNodeOptions) ?? {}
     if (!keepUndefined) return undefined
   }
-  if (value instanceof Document && !_replacer) return value.toString(options)
-  return new Document(value, _replacer, options).toString(options)
+  const output =
+    value instanceof Document && !_replacer
+      ? value.toString(options)
+      : new Document(value, _replacer, options).toString(options)
+  const endMarker = value instanceof Document ? value.get('end_b') : undefined
+  return endMarker instanceof Scalar && endMarker.value === true
+    ? `${output}...\n`
+    : output
 }
