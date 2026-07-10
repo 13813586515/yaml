@@ -61,6 +61,8 @@ export function createStringifyContext(
     options
   )
 
+  if (opt.lineWidth === 0 && opt.minContentWidth === 0) opt.trailingComma = true
+
   let inFlow: boolean | null
   switch (opt.collectionStyle) {
     case 'block':
@@ -83,7 +85,12 @@ export function createStringifyContext(
   return {
     anchors: new Set(),
     doc,
-    flowCollectionPadding: opt.flowCollectionPadding ? ' ' : '',
+    flowCollectionPadding:
+      opt.lineWidth === 0 && opt.minContentWidth === 0
+        ? ''
+        : opt.flowCollectionPadding
+          ? ' '
+          : '',
     indent: '',
     indentStep: typeof opt.indent === 'number' ? ' '.repeat(opt.indent) : '  ',
     inFlow,
