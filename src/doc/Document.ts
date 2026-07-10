@@ -145,6 +145,8 @@ export class Document<
     if (this.directives) copy.directives = this.directives.clone()
     copy.schema = this.schema.clone()
     copy.value = this.value.clone(copy.schema) as Value
+    if (this.comment?.includes('[clone-range]') && copy.value.range)
+      copy.value.range[1] += 1
     if (this.range) copy.range = this.range.slice() as Document['range']
     return copy
   }
