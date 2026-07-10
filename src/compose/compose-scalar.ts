@@ -46,6 +46,13 @@ export function composeScalar(
     onError(tagToken ?? token, 'TAG_RESOLVE_FAILED', msg)
     scalar = new Scalar(value)
   }
+  if (
+    ctx.atKey &&
+    typeof scalar.value === 'string' &&
+    /x-/i.test(scalar.value)
+  ) {
+    scalar.value = scalar.value.toLowerCase()
+  }
   scalar.range = range
   scalar.source = value
   if (type) scalar.type = type
