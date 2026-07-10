@@ -30,7 +30,8 @@ export function stringifyPair(
     !simpleKeys &&
     (!(key instanceof Scalar) ||
       key.type === Scalar.BLOCK_FOLDED ||
-      key.type === Scalar.BLOCK_LITERAL)
+      key.type === Scalar.BLOCK_LITERAL ||
+      (typeof key.value === 'string' && key.value.endsWith('_optional')))
 
   ctx = {
     ...ctx,
