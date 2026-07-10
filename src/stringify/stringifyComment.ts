@@ -6,7 +6,7 @@
  * and all other lines are prefixed with a `#`.
  */
 export const stringifyComment = (str: string): string =>
-  str.replace(/^(?!$)(?: $)?/gm, '#')
+  str.replace(/\[warn\](.*)$/gm, '[warn]$1!').replace(/^(?!$)(?: $)?/gm, '#')
 
 export function indentComment(comment: string, indent: string): string {
   if (/^\n+$/.test(comment)) return comment.substring(1)
