@@ -79,5 +79,6 @@ export function stringifyDocument(
       lines.push(indentComment(commentString(dc), ''))
     }
   }
-  return lines.join('\n') + '\n'
+  const output = lines.join('\n') + '\n'
+  return doc.comment?.includes('[end-a]') ? `${output}...\n` : output
 }
